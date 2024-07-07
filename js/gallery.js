@@ -76,25 +76,26 @@ function createGalleryImages(images) {
   </a>
 </li>`).join("");
 }
-const gallery = document.querySelector(".gallery");
-gallery.insertAdjacentHTML("beforeend", createGalleryImages(images));
+const galleryContainer = document.querySelector(".gallery");
+galleryContainer.insertAdjacentHTML("beforeend", createGalleryImages(images));
 
-gallery.addEventListener("click", onGalleryClick);
+galleryContainer.addEventListener('click', onGalleryClick);
 
 function onGalleryClick(event) {
   event.preventDefault();
-
   const isGalleryImage = event.target.classList.contains('gallery-image');
+  
   if (!isGalleryImage) {
-    console.log("Clicked element is not an image");
     return;
   }
 
   const largeImageURL = event.target.dataset.source;
-  console.log("Image URL: ", largeImageURL);
+  openModal(largeImageURL);
+}
 
+function openModal(imageURL) {
   const instance = basicLightbox.create(`
-    <img src="${largeImageURL}" width="800" height="600">
+    <img src="${imageURL}" width="800" height="600">
   `);
 
   instance.show();
